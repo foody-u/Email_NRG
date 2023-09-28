@@ -9,8 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-email/button": "0.0.10",
+    "@react-email/components": "^0.0.7",
+    "@react-email/html": "0.0.4",
+    "@react-email/render": "0.0.7",
+    "@sendgrid/mail": "^7.7.0",
+    "next": "latest",
     "react": "latest",
-    "react-dom": "latest",
-    "next": "latest"
+    "react-dom": "latest"
   }
 }

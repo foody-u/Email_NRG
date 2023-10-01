@@ -9,11 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@react-email/button": "0.0.10",
     "@react-email/components": "^0.0.7",
     "@react-email/html": "0.0.4",
     "@react-email/render": "0.0.7",
     "@sendgrid/mail": "^7.7.0",
+    "framer-motion": "^10.16.4",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest"

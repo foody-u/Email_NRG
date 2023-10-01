@@ -13,6 +13,7 @@ import {
     Section,
     Text,
     Button,
+    Font
 } from '@react-email/components';
 import * as React from 'react';
 
@@ -20,7 +21,14 @@ import { FIRST_ROW_DATA, SECOND_ROW_DATA } from '@/data';
 
 export const Email = () => (
     <Html>
-        <Head />
+        <Head>
+            <Font
+                fontFamily="Helvetica"
+                fallbackFontFamily="Sans-serif"
+                fontWeight={[300, 400, 500, 600, 700, 800]}
+                fontStyle="normal"
+            />
+        </Head>
         <Preview>Get your order summary, estimated delivery date and more</Preview>
         <Body style={main}>
             <Container style={container}>
@@ -46,7 +54,7 @@ export const Email = () => (
                     }}>
                         <Img
                             src={`https://ik.imagekit.io/foodyuapp/NRG%20&%20Damirov/Damirov.com%20logo.png?updatedAt=1695915897955`}
-                            width="186"
+                            width="226"
                             height="65"
                             alt="Damirov coaching"
                         />
@@ -58,8 +66,7 @@ export const Email = () => (
 
                 <Section style={{
                     ...card,
-                    border: 0,
-                    height: "450px",
+                    height: "370px",
                 }}>
                     <Heading style={{
                         ...TEXT_STYLE.h1,
@@ -78,8 +85,6 @@ export const Email = () => (
 
 
                 <LineSeparator />
-
-
 
 
                 <Section>
@@ -158,41 +163,57 @@ export const Email = () => (
                         <br />
                         <Row >
                             <Text style={{ ...TEXT_STYLE.h2 }}>
-                                $50/m
+                                £50/m
                             </Text>
                             <CustomLink
                             >Book a call</CustomLink>
                         </Row>
                     </Row>
+                    <LineSeparator />
+
+
+                    <Section style={{
+                    }}>
+                        <Row>
+                            <Column style={{
+                            }}>
+                                <Heading style={{
+                                    ...TEXT_STYLE.h2,
+                                    fontWeight: "Bold"
+                                }}>
+                                    Any questions?
+                                </Heading>
+                                <Text style={{
+                                    ...TEXT_STYLE.textSm,
+                                    textAlign: "start",
+                                }}>
+                                    WhatsApp: <Link
+                                        href='https://wa.me/07534580009'
+                                        style={{
+                                            fontWeight: "bold"
+                                        }}>07534580009</Link>
+                                </Text>
+                            </Column>
+
+                        </Row>
+                        <Row>
+                            <Column style={{
+                            }}>
+                                <Text style={{
+                                    ...TEXT_STYLE.h2
+                                }}>David Damirov</Text>
+                                <Text style={{
+                                    ...TEXT_STYLE.textSm
+                                }}>Sport Nutritionist</Text>
+                                <Text style={{
+                                    ...TEXT_STYLE.textSm
+                                }}>Personal trainer</Text>
+                            </Column>
+                        </Row>
+                    </Section>
                 </Section>
 
-                <LineSeparator />
 
-
-                <Section style={{
-                    textAlign: "center"
-                }}>
-                    <Column>
-                        <Heading>
-                            Any questions?
-                        </Heading>
-                        <Text>
-                            WhatsApp me at 07534580009 or by
-                            pressing the button below
-                        </Text>
-                        <Text>
-                            Contact
-                        </Text>
-                    </Column>
-                    <Column style={{
-                        width: "100%"
-                    }}></Column>
-                    <Column>
-                        <Text>David Damirov</Text>
-                        <Text>Sport Nutritionist</Text>
-                        <Text>Personal trainer</Text>
-                    </Column>
-                </Section>
             </Container>
         </Body>
     </Html>
@@ -216,33 +237,6 @@ function SecondaryCard({
                 ...cardSecondary,
                 width: "450px"
             }}>
-                {/* <Row style={{
-                    marginBottom: "-70px"
-                }}>
-                    <Text style={{
-                        border: "1px solid white",
-                        borderColor: "white",
-                        borderRadius: "999px",
-                        width: "65px",
-                        float: "right",
-                        fontWeight: "bold"
-                    }}>
-                        <Text style={{
-                            marginBottom: "-25px",
-                            fontSize: "13px",
-                        }}>
-                            save
-                        </Text>
-                        <Text style={{
-                            fontSize: "13px"
-                        }}>
-                            $36
-                        </Text>
-                    </Text>
-                </Row> */}
-                {/* <Img
-                    src='/1.PNG'
-                /> */}
                 <Text style={{
                     ...TEXT_STYLE.h2,
                 }}>{sessionNum}</Text>
@@ -254,10 +248,11 @@ function SecondaryCard({
                 <Text style={{
                     ...TEXT_STYLE.text,
                     marginTop: "50px",
+                    height: "85px"
                 }}>{text}</Text>
-                {/* <Text style={{
-                    ...TEXT_STYLE.text,
-                }}>{lastPart}</Text> */}
+                <Row style={{
+                    marginTop: "auto"
+                }}></Row>
                 <PriceButton
                     small
                     price={price}
@@ -281,7 +276,8 @@ function PriceButton({
             <Text style={{
                 ...TEXT_STYLE.h3,
                 marginBottom: "15px",
-            }}>${price}</Text>
+                fontWeight: 300,
+            }}>£{price}</Text>
             <CustomLink
                 small>{text}</CustomLink>
         </Row>
@@ -322,8 +318,6 @@ function LineSeparator() {
 
 const main = {
     background: "#2F2F2F",
-    fontFamily:
-        '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
 };
 
 const TEXT_STYLE = {
@@ -331,28 +325,34 @@ const TEXT_STYLE = {
         fontSize: "48px",
         fontWeight: "bold",
         lineHeight: "",
+        color: "white"
     },
     h2: {
         fontSize: "38px",
         fontWeight: "bold",
         lineHeight: "",
+        color: "white"
     },
     h3: {
         fontSize: "32px",
         fontWeight: "semi-bold",
         lineHeight: "",
+        color: "white"
     },
     text: {
         fontSize: "25px",
         fontWeight: 400,
+        color: "white"
     },
     textLg: {
         fontSize: "26px",
         fontWeight: 400,
+        color: "white"
     },
     textSm: {
         fontSize: "20px",
         fontWeight: 400,
+        color: "white"
     }
 
 }

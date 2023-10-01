@@ -5,6 +5,16 @@ import styles from '@/styles/Home.module.css'
 import { Email } from '@/components/Email'
 const inter = Inter({ subsets: ['latin'] })
 import { render } from "@react-email/render";
+import {
+  Button,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  Portal,
+  Input
+} from '@chakra-ui/react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function Home() {
   return (
@@ -19,27 +29,123 @@ export default function Home() {
 
         className={`${styles.main} 
       ${inter.className}`}
-        style={{ width: "100%", }}
+        style={{ width: "100%", height: "90vh" }}
       >
-        <Email />
+        {/* <Email /> */}
 
-        <button onClick={async () => {
-          const html = render(<Email />, {
-            pretty: true
-          });
-          const url = "/api/hello";
-          const res = await fetch(url, {
-            method: "post",
-            mode: "no-cors",
-            headers: {
-              "Content-Type": "text/html",
-            },
-            body: html,
-          });
-          console.log(res);
+        <SendEmailForm />
 
-        }}>Send email bitch</button>
       </main>
     </>
+  )
+}
+
+function SendEmailForm() {
+  const [isSending, setIsSending] = useState();
+  const [success, setSuccess] = useState();
+  const [showAlert, setShowAlert] = useState(false);
+  const inputRef = useRef();
+
+  useEffect(() => {
+
+    let timer;
+    function closeAlert() {
+      timer = setTimeout(() => {
+        setShowAlert(false)
+      }, 4000);
+    }
+
+    closeAlert()
+
+    return () => {
+      clearTimeout(timer)
+    }
+
+  }, [showAlert])
+
+
+  return (
+    <form style={{
+      width: "800px",
+      display: "flex",
+      gap: "5px"
+    }}
+      onSubmit={async (e) => {
+        setIsSending(true);
+        e.preventDefault();
+        const html = render(<Email />, {
+          pretty: true
+        });
+        const url = `/api/sendEmail/${inputRef.current.value}`;
+        console.log(url);
+        const res = await fetch(url, {
+          method: "post",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "text/html",
+          },
+          body: html,
+        });
+
+
+        console.log(res, " RES");
+
+        if (res.ok) {
+          setSuccess(true);
+        } else {
+          setSuccess(false)
+        }
+
+        setShowAlert(true)
+        setIsSending(false)
+      }}
+    >
+      <Input
+        type='email'
+        placeholder='Enter email of the customer'
+        required
+        minLength={1}
+        colorScheme='gray'
+        _active={{
+          borderCOlor: "white"
+        }}
+        _focusVisible={{
+          borderColor: "white"
+        }}
+        ref={inputRef}
+      />
+
+      <Button
+        isLoading={isSending}
+        className={`${styles.button}`}
+        type='submit'
+        bg="green.500"
+        _hover={{
+          backgroundColor: "green.400"
+        }}
+      >Send</Button>
+      {showAlert && <Portal>
+        <Alert
+          status={success === true ? 'success' : 'error'}
+          variant='subtle'
+          flexDirection='column'
+          alignItems='center'
+          justifyContent='center'
+          textAlign='center'
+          height='200px'
+          closable
+          position={"absolute"}
+          top={0}
+          left={"50%"}
+          transform={"translateX(-50%)"}
+          color={"white"}
+          fontSize={"24px"}
+          gap="15px"
+        >
+          <AlertIcon width={"35px"} height={"35px"} />
+          <AlertTitle>{success === true ? "Email was sent successfully!" : "Error sending email!"}</AlertTitle>
+        </Alert>
+      </Portal>}
+    </form>
   )
 }

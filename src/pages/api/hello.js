@@ -3,7 +3,7 @@ sgMail.setApiKey("SG.YhktpaJ0T4WklFSklFg5bw.cHSOW93Q1JxLtTteOIA08AEEpN5vHJkQq5C9
 const GMAIL = "semen.shorin@gmail.com"
 const YANDEX = "s3menchyk@Yandex.ru"
 const msg = {
-  to: YANDEX, // Change to your recipient
+  to: "semen.shorin@gmail.com", // Change to your recipient
   from: 'david@damirov.com', // Change to your verified sender
   subject: 'Sending with SendGrid is Fun or is it?',
   text: 'and easy to do anywhere, even with Node.js',

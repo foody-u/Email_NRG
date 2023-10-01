@@ -16,12 +16,14 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
+import { FIRST_ROW_DATA, SECOND_ROW_DATA } from '@/data';
+
 export const Email = () => (
     <Html>
         <Head />
         <Preview>Get your order summary, estimated delivery date and more</Preview>
         <Body style={main}>
-            <Section style={container}>
+            <Container style={container}>
                 <Section style={{
                     paddingTop: "50px"
                 }}>
@@ -30,8 +32,8 @@ export const Email = () => (
                     }}>
                         <Img
                             src={`https://ik.imagekit.io/foodyuapp/NRG%20&%20Damirov/NRG%20Logo.png?updatedAt=1695915876172`}
-                            width="256"
-                            height="95"
+                            width="205"
+                            height="65"
                             alt="NRG logo"
                         />
                     </Column>
@@ -44,29 +46,42 @@ export const Email = () => (
                     }}>
                         <Img
                             src={`https://ik.imagekit.io/foodyuapp/NRG%20&%20Damirov/Damirov.com%20logo.png?updatedAt=1695915897955`}
-                            width="226"
-                            height="85"
+                            width="186"
+                            height="65"
                             alt="Damirov coaching"
                         />
                     </Column>
                 </Section>
+
+
+                <LineSeparator />
+
                 <Section style={{
-                    ...card
+                    ...card,
+                    border: 0,
+                    height: "450px",
                 }}>
                     <Heading style={{
                         ...TEXT_STYLE.h1,
                         marginBottom: "25px"
                     }}>First session</Heading>
                     <Text style={{
-                        ...TEXT_STYLE.text,
-                        marginBottom: "25px"
-                    }}>Start with one 55-min training session. Get the important knowledge.</Text>
+                        ...TEXT_STYLE.textLg,
+                    }}>Start with One 55-min training session. Get the important knowledge.</Text>
                     <PriceButton
                         price="15"
                         text="Find time"
 
                     />
                 </Section>
+
+
+
+                <LineSeparator />
+
+
+
+
                 <Section>
                     <Row>
                         {FIRST_ROW_DATA.map((data, i) => {
@@ -76,7 +91,9 @@ export const Email = () => (
                             />
                         })}
                     </Row>
-                    <Row>
+                    <Row style={{
+                        marginTop: "25px"
+                    }}>
                         {SECOND_ROW_DATA.map((data, i) => {
 
                             return <SecondaryCard
@@ -87,41 +104,71 @@ export const Email = () => (
                         })}
                     </Row>
                 </Section>
+
+                <LineSeparator />
+
                 <Section>
                     <Row style={{
                         textAlign: "center"
                     }}>
-                        <Column>
+                        <Row>
                             <Heading
-                                style={{ ...TEXT_STYLE.h2 }}
+                                style={{
+                                    ...TEXT_STYLE.h1,
+                                    fontWeight: "400",
+                                    textAlign: "center",
+                                    margin: "0 auto"
+                                }}
                             >
                                 Monthly
-                            </Heading>
-                            <Text style={{ ...TEXT_STYLE.h2 }}>
+                                {" "}
+                                <span style={{
+                                    fontWeight: "bold"
+                                }}>Online</span>
+                                <br />
                                 Training program
-                            </Text>
-                        </Column>
-                        <Column>
-                            <Text style={{ ...TEXT_STYLE.textSm }}>
-                                New training plan every month
-                            </Text>
-                            <Text style={{ ...TEXT_STYLE.textSm }}>
-                                1x 30-min video call
+                            </Heading>
+                        </Row>
 
-                            </Text>
-                            <Text style={{ ...TEXT_STYLE.textSm }}>
-                                Access to chat with David
-                            </Text>
-                        </Column>
-                        <Column>
-                            <Text style={{ ...TEXT_STYLE.textSm }}>
+
+                        <br />
+
+                        <Row style={{
+                            width: "340px",
+                            margin: "0 auto",
+                        }}>
+                            <Column style={{
+                                textAlign: "start",
+                            }}>
+                                <Text style={{ ...TEXT_STYLE.textLg }}>
+                                    - New training plan every month
+                                </Text>
+                                <br />
+
+                                <Text style={{ ...TEXT_STYLE.textLg }}>
+                                    - 1x 30-min video call
+                                </Text>
+                                <br />
+
+                                <Text style={{ ...TEXT_STYLE.textLg }}>
+                                    - Access to chat with David
+                                </Text>
+                            </Column>
+                        </Row>
+                        <br />
+                        <Row >
+                            <Text style={{ ...TEXT_STYLE.h2 }}>
                                 $50/m
                             </Text>
                             <CustomLink
                             >Book a call</CustomLink>
-                        </Column>
+                        </Row>
                     </Row>
                 </Section>
+
+                <LineSeparator />
+
+
                 <Section style={{
                     textAlign: "center"
                 }}>
@@ -146,68 +193,71 @@ export const Email = () => (
                         <Text>Personal trainer</Text>
                     </Column>
                 </Section>
-            </Section>
-
+            </Container>
         </Body>
     </Html>
 );
 
-const FIRST_ROW_DATA = [
-    {
-        type: "card",
-        sessionNum: 1,
-        text: "one 55-min training session",
-        price: 42,
-    },
-
-    {
-        type: "card",
-        sessionNum: 4,
-        text: "Keep on track of your fitness journey",
-        price: 160,
-    },
-]
-
-const SECOND_ROW_DATA = [
-    {
-        sessionNum: 8,
-        text: "Learn and improve with the optimal rate",
-        price: 300,
-    },
-    {
-        sessionNum: 12,
-        text: "Reach your goals as fast as possible",
-        price: 420,
-    }
-]
 
 function SecondaryCard({
     sessionNum,
     text,
     price,
 }) {
+
+    const firstPart = text.split(" ").slice(0, 3).join(" ");
+    const lastPart = text.split(" ").slice(3, text.length).join(" ");
+
     return (
         <Column style={{
-            padding: "10px"
+            paddingRight: "5px",
         }}>
             <Column style={{
-                ...card,
-                width: "400px",
-                marginLeft: "15px",
+                ...cardSecondary,
+                width: "450px"
             }}>
+                {/* <Row style={{
+                    marginBottom: "-70px"
+                }}>
+                    <Text style={{
+                        border: "1px solid white",
+                        borderColor: "white",
+                        borderRadius: "999px",
+                        width: "65px",
+                        float: "right",
+                        fontWeight: "bold"
+                    }}>
+                        <Text style={{
+                            marginBottom: "-25px",
+                            fontSize: "13px",
+                        }}>
+                            save
+                        </Text>
+                        <Text style={{
+                            fontSize: "13px"
+                        }}>
+                            $36
+                        </Text>
+                    </Text>
+                </Row> */}
+                {/* <Img
+                    src='/1.PNG'
+                /> */}
                 <Text style={{
-                    ...TEXT_STYLE.h1,
-
+                    ...TEXT_STYLE.h2,
                 }}>{sessionNum}</Text>
                 <Text style={{
-                    ...TEXT_STYLE.h1
+                    ...TEXT_STYLE.h2
                 }}>
-                    Training sessions
+                    Training {sessionNum > 1 ? "sessions" : "session"}
                 </Text>
                 <Text style={{
                     ...TEXT_STYLE.text,
-                    marginTop: "50px"
+                    marginTop: "50px",
                 }}>{text}</Text>
+                {/* <Text style={{
+                    ...TEXT_STYLE.text,
+                }}>{lastPart}</Text> */}
                 <PriceButton
                     small
                     price={price}
@@ -215,7 +265,7 @@ function SecondaryCard({
 
                 />
             </Column>
-        </Column>
+        </Column >
     )
 }
 
@@ -229,8 +279,8 @@ function PriceButton({
             marginTop: "50px"
         }}>
             <Text style={{
-                ...TEXT_STYLE.text,
-                marginBottom: "45px"
+                ...TEXT_STYLE.h3,
+                marginBottom: "15px",
             }}>${price}</Text>
             <CustomLink
                 small>{text}</CustomLink>
@@ -239,46 +289,69 @@ function PriceButton({
 }
 
 
-function CustomLink({ children, href, small }) {
+function CustomLink({ children, href, small, ...styles }) {
     return (
         <Link
             href={href ? href : "#"}
             style={{
-                backgroundColor: "green",
                 color: COLOR_PRIMARY["500"],
                 padding: small ? "12px 50px" : "12px 120px",
-                borderRadius: "10px",
-                fontSize: "24px",
+                borderRadius: "5px",
+                fontSize: "19px",
                 textAlign: "center",
                 display: "block",
+                background: "#5dd95d",
+                boxShadow: "4px 3px 8px 0px rgba(34, 60, 80, 0.2)",
+                ...styles
             }}
         >{children}</Link>
     )
 }
 
+function LineSeparator() {
+    return (
+        <>
+            <br />
+            <br />
+            <hr />
+            <br />
+            <br />
+        </>
+    )
+}
+
 const main = {
+    background: "#2F2F2F",
     fontFamily:
         '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
-    backgroundColor: "red",
 };
 
 const TEXT_STYLE = {
     h1: {
-        fontSize: "46px",
-        fontWeight: "semi-bold",
+        fontSize: "48px",
+        fontWeight: "bold",
         lineHeight: "",
     },
-    h1: {
-        fontSize: "36px",
+    h2: {
+        fontSize: "38px",
+        fontWeight: "bold",
+        lineHeight: "",
+    },
+    h3: {
+        fontSize: "32px",
         fontWeight: "semi-bold",
         lineHeight: "",
     },
     text: {
-        fontSize: "24px",
+        fontSize: "25px",
+        fontWeight: 400,
+    },
+    textLg: {
+        fontSize: "26px",
         fontWeight: 400,
     },
     textSm: {
-        fontSize: "px",
+        fontSize: "20px",
         fontWeight: 400,
     }
 
@@ -287,23 +360,27 @@ const TEXT_STYLE = {
 const card = {
     textAlign: "center",
     width: "100%",
-    height: "550px",
     borderRadius: '10px',
-    margin: "50px 0",
-    padding: "0px 30px",
-    border: "1px solid",
-    borderColor: "white"
+    padding: "20px",
+    // border: "1px solid white",
+    // borderColor: "white",
+}
+
+const cardSecondary = {
+    ...card,
+    height: "480px",
+    backgroundColor: "#292525c4"
 }
 
 
 const COLOR_PRIMARY = {
-    500: "black",
+    500: "#2F2F2F",
 }
 
 const container = {
     backgroundColor: '#2F2F2F',
     margin: "50px auto",
-    padding: "10px 50px",
+    padding: "10px",
     color: 'white',
 };
 

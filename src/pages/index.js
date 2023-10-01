@@ -7,12 +7,6 @@ const inter = Inter({ subsets: ['latin'] })
 import { render } from "@react-email/render";
 
 export default function Home() {
-  const html = render(<Email />, {
-    pretty: true
-  });
-
-  console.log(html);
-
   return (
     <>
       <Head>
@@ -30,6 +24,9 @@ export default function Home() {
         <Email />
 
         <button onClick={async () => {
+          const html = render(<Email />, {
+            pretty: true
+          });
           const url = "/api/hello";
           const res = await fetch(url, {
             method: "post",

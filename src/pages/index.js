@@ -12,9 +12,20 @@ import {
   AlertTitle,
   AlertDescription,
   Portal,
-  Input
+  Input,
+  Box,
+  Tabs, TabList, TabPanels, Tab, TabPanel
 } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
+
+function PreviewEmail() {
+  const html = render(<Email />, {
+    pretty: true
+  });
+  return (
+    <div dangerouslySetInnerHTML={{ __html: html }} />
+  );
+}
 
 export default function Home() {
   return (
@@ -25,17 +36,46 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main
-
-        className={`${styles.main} 
-      ${inter.className}`}
-        style={{ width: "100%", height: "90vh" }}
+      <Box
+        as="main"
+        w="100%"
+        minH="100vh"
       >
-        {/* <Email /> */}
+        <Tabs
+        >
+          <TabList
+            m="0 auto"
+            transform={"translateX(-50px)"}
+            maxW="250px">
+            <Tab flex={1}>Send email</Tab>
+            <Tab flex={1}>Preview</Tab>
+          </TabList>
 
-        <SendEmailForm />
+          <TabPanels>
+            <TabPanel
+            >
+              <Box
+                display={"flex"}
+                flexDir={"column"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                h="100vh"
+              >
+                <Box>
+                  <SendEmailForm />
+                </Box>
+              </Box>
+            </TabPanel>
+            <TabPanel
+            >
+              <code>
+                <PreviewEmail />
+              </code>
+            </TabPanel>
+          </TabPanels>
 
-      </main>
+        </Tabs>
+      </Box>
     </>
   )
 }

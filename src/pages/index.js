@@ -14,18 +14,21 @@ import {
   Portal,
   Input,
   Box,
-  Tabs, TabList, TabPanels, Tab, TabPanel
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Form,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
 } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 
-function PreviewEmail() {
-  const html = render(<Email />, {
-    pretty: true
-  });
-  return (
-    <div dangerouslySetInnerHTML={{ __html: html }} />
-  );
-}
+const SUBJECT = "subject"
+const TEXT = "text"
 
 export default function Home() {
   return (
@@ -46,9 +49,10 @@ export default function Home() {
           <TabList
             m="0 auto"
             transform={"translateX(-50px)"}
-            maxW="250px">
+            maxW="350px">
             <Tab flex={1}>Send email</Tab>
             <Tab flex={1}>Preview</Tab>
+            <Tab flex={1}>Settings</Tab>
           </TabList>
 
           <TabPanels>
@@ -72,6 +76,18 @@ export default function Home() {
                 <PreviewEmail />
               </code>
             </TabPanel>
+            <TabPanel>
+              <Box
+                maxW="900px"
+                m="0 auto"
+                minH="100vh"
+                display={"flex"}
+                alignItems={"center"}
+
+              >
+                <Settings />
+              </Box>
+            </TabPanel>
           </TabPanels>
 
         </Tabs>
@@ -80,10 +96,88 @@ export default function Home() {
   )
 }
 
+function Settings() {
+  const [subject, setSubject] = useState("");
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    const savedSubject = localStorage.getItem(SUBJECT);
+    const savedText = localStorage.getItem(TEXT);
+    console.log(subject);
+
+    if (savedSubject) {
+      setSubject(() => savedSubject);
+    }
+
+    if (savedText) {
+      setText(() => savedText);
+    }
+
+  }, [])
+
+  return (
+    <Box
+      as={"form"}
+      w="100%"
+      display={"flex"}
+      flexDir={"column"}
+      gap={"35px"}
+      transform={"translateY(-300px)"}
+      onSubmit={(e) => {
+        e.preventDefault()
+        localStorage.setItem("subject", SUBJECT);
+        localStorage.setItem("text", TEXT)
+      }}
+    >
+      <FormControl>
+        <FormLabel>Email subject</FormLabel>
+        <Input
+          onChange={(e) => setSubject(e.target.value)}
+          value={subject} type='text' />
+      </FormControl>
+      <FormControl>
+        <FormLabel>Email text</FormLabel>
+        <Input
+          onChange={(e) => setText(e.target.value)}
+          value={text} type='text' />
+      </FormControl>
+      <CustomButton>
+        Save
+      </CustomButton>
+    </Box>
+  )
+}
+
+function CustomButton({ isSending, children }) {
+  return (
+    <Button
+      isLoading={isSending}
+      className={`${styles.button}`}
+      type='submit'
+      bg="green.500"
+      maxH="50px"
+      maxW="200px"
+      _hover={{
+        backgroundColor: "green.400"
+      }}
+    >{children}</Button>
+  )
+}
+
+function PreviewEmail() {
+  const html = render(<Email />, {
+    pretty: true
+  });
+  return (
+    <div dangerouslySetInnerHTML={{ __html: html }} />
+  );
+}
+
 function SendEmailForm() {
   const [isSending, setIsSending] = useState();
   const [success, setSuccess] = useState();
   const [showAlert, setShowAlert] = useState(false);
+  const [alertText, setAlertText] = useState("")
   const inputRef = useRef();
 
   useEffect(() => {
@@ -92,6 +186,7 @@ function SendEmailForm() {
     function closeAlert() {
       timer = setTimeout(() => {
         setShowAlert(false)
+        setAlertText("")
       }, 4000);
     }
 
@@ -111,8 +206,25 @@ function SendEmailForm() {
       gap: "5px"
     }}
       onSubmit={async (e) => {
+        e.preventDefault()
+        const subject = localStorage.getItem(SUBJECT)
+        const text = localStorage.getItem(TEXT)
+
+
+        if (!subject) {
+          setShowAlert(true)
+          setAlertText("Please set subject in settings!");
+          return
+        }
+
+        if (!text) {
+          setShowAlert(true)
+          setAlertText("Please set text in settings!");
+          return
+        }
+
+
         setIsSending(true);
-        e.preventDefault();
         const html = render(<Email />, {
           pretty: true
         });
@@ -122,9 +234,14 @@ function SendEmailForm() {
           method: "post",
           mode: "no-cors",
           headers: {
-            "Content-Type": "text/html",
+            "Content-Type": "application/json",
           },
-          body: html,
+          body: {
+            html,
+            headerData: {
+
+            }
+          },
         });
 
 
@@ -155,15 +272,9 @@ function SendEmailForm() {
         ref={inputRef}
       />
 
-      <Button
+      <CustomButton
         isLoading={isSending}
-        className={`${styles.button}`}
-        type='submit'
-        bg="green.500"
-        _hover={{
-          backgroundColor: "green.400"
-        }}
-      >Send</Button>
+      >Send</CustomButton>
       {showAlert && <Portal>
         <Alert
           status={success === true ? 'success' : 'error'}
@@ -184,6 +295,7 @@ function SendEmailForm() {
         >
           <AlertIcon width={"35px"} height={"35px"} />
           <AlertTitle>{success === true ? "Email was sent successfully!" : "Error sending email!"}</AlertTitle>
+          <AlertDescription>{alertText}</AlertDescription>
         </Alert>
       </Portal>}
     </form>

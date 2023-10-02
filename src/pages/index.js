@@ -51,8 +51,8 @@ export default function Home() {
             transform={"translateX(-50px)"}
             maxW="350px">
             <Tab flex={1}>Send email</Tab>
-            <Tab flex={1}>Preview</Tab>
             <Tab flex={1}>Settings</Tab>
+            <Tab flex={1}>Preview</Tab>
           </TabList>
 
           <TabPanels>
@@ -64,16 +64,13 @@ export default function Home() {
                 </Box>
               </Container>
             </TabPanel>
-            <TabPanel
-            >
-              <code>
-                <PreviewEmail />
-              </code>
-            </TabPanel>
             <TabPanel>
               <Container>
                 <Settings />
               </Container>
+            </TabPanel>
+            <TabPanel>
+              <PreviewEmail />
             </TabPanel>
           </TabPanels>
 
@@ -153,18 +150,18 @@ function Container({ children, ...styles }) {
   )
 }
 
-function CustomButton({ isSending, children }) {
+function CustomButton({ children, ...styles }) {
   return (
     <Button
-      isLoading={isSending}
       className={`${styles.button}`}
       type='submit'
       bg="green.500"
       maxH="50px"
-      maxW="200px"
+      w="200px"
       _hover={{
         backgroundColor: "green.400"
       }}
+      {...styles}
     >{children}</Button>
   )
 }

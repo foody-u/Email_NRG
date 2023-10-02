@@ -61,12 +61,13 @@ export const Email = () => (
                     </Column>
                 </Section>
 
-
-                <LineSeparator />
+                <SpaceSeparator />
 
                 <Section style={{
                     ...card,
                     height: "370px",
+                    textAlign: "center",
+                    padding: "10px"
                 }}>
                     <Heading style={{
                         ...TEXT_STYLE.h1,
@@ -114,12 +115,12 @@ export const Email = () => (
 
                 <Section>
                     <Row style={{
-                        textAlign: "center"
+                        textAlign: "start"
                     }}>
                         <Row>
                             <Heading
                                 style={{
-                                    ...TEXT_STYLE.h1,
+                                    ...TEXT_STYLE.h2,
                                     fontWeight: "400",
                                     textAlign: "center",
                                     margin: "0 auto"
@@ -145,24 +146,24 @@ export const Email = () => (
                             <Column style={{
                                 textAlign: "start",
                             }}>
-                                <Text style={{ ...TEXT_STYLE.textLg }}>
+                                <Text style={{ ...TEXT_STYLE.text }}>
                                     - New training plan every month
                                 </Text>
                                 <br />
 
-                                <Text style={{ ...TEXT_STYLE.textLg }}>
+                                <Text style={{ ...TEXT_STYLE.text }}>
                                     - 1x 30-min video call
                                 </Text>
                                 <br />
 
-                                <Text style={{ ...TEXT_STYLE.textLg }}>
+                                <Text style={{ ...TEXT_STYLE.text }}>
                                     - Access to chat with David
                                 </Text>
                             </Column>
                         </Row>
                         <br />
                         <Row >
-                            <Text style={{ ...TEXT_STYLE.h2 }}>
+                            <Text style={{ ...TEXT_STYLE.h2, textAlign: "center" }}>
                                 £50/m
                             </Text>
                             <CustomLink
@@ -224,6 +225,7 @@ function SecondaryCard({
     sessionNum,
     text,
     price,
+    oldPrice,
 }) {
 
     const firstPart = text.split(" ").slice(0, 3).join(" ");
@@ -232,14 +234,17 @@ function SecondaryCard({
     return (
         <Column style={{
             paddingRight: "5px",
+            textAlign: "start"
         }}>
             <Column style={{
                 ...cardSecondary,
                 width: "450px"
             }}>
-                <Text style={{
-                    ...TEXT_STYLE.h2,
-                }}>{sessionNum}</Text>
+                <Row>
+                    <Text style={{
+                        ...TEXT_STYLE.h1,
+                    }}>{sessionNum}</Text>
+                </Row>
                 <Text style={{
                     ...TEXT_STYLE.h2
                 }}>
@@ -256,6 +261,7 @@ function SecondaryCard({
                 <PriceButton
                     small
                     price={price}
+                    oldPrice={oldPrice}
                     text="Find time"
 
                 />
@@ -266,6 +272,7 @@ function SecondaryCard({
 
 function PriceButton({
     price,
+    oldPrice,
     text,
     small
 }) {
@@ -273,11 +280,20 @@ function PriceButton({
         <Row style={{
             marginTop: "50px"
         }}>
+
             <Text style={{
                 ...TEXT_STYLE.h3,
                 marginBottom: "15px",
                 fontWeight: 300,
-            }}>£{price}</Text>
+            }}>
+                £{price}
+            </Text>
+            {oldPrice && <>
+                <Text>
+                    <strike>£{oldPrice}</strike>
+                    | you save £{oldPrice - price}
+                </Text>
+            </>}
             <CustomLink
                 small>{text}</CustomLink>
         </Row>
@@ -290,13 +306,13 @@ function CustomLink({ children, href, small, ...styles }) {
         <Link
             href={href ? href : "#"}
             style={{
-                color: COLOR_PRIMARY["500"],
+                color: "black",
                 padding: small ? "12px 50px" : "12px 120px",
                 borderRadius: "5px",
                 fontSize: "19px",
                 textAlign: "center",
                 display: "block",
-                background: "#5dd95d",
+                background: "white",
                 boxShadow: "4px 3px 8px 0px rgba(34, 60, 80, 0.2)",
                 ...styles
             }}
@@ -310,6 +326,19 @@ function LineSeparator() {
             <br />
             <br />
             <hr />
+            <br />
+            <br />
+        </>
+    )
+}
+
+
+function SpaceSeparator() {
+    return (
+        <>
+            <br />
+            <br />
+            <br />
             <br />
             <br />
         </>
@@ -358,7 +387,6 @@ const TEXT_STYLE = {
 }
 
 const card = {
-    textAlign: "center",
     width: "100%",
     borderRadius: '10px',
     padding: "20px",
@@ -369,7 +397,6 @@ const card = {
 const cardSecondary = {
     ...card,
     height: "480px",
-    backgroundColor: "#292525c4"
 }
 
 

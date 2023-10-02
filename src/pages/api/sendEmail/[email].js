@@ -16,6 +16,7 @@ export default function handler(req, res) {
         email
     } = req.query;
 
+
     if (!email) {
         console.error(`Invalid email ${email}!`)
         res.status(403).json({
@@ -23,8 +24,15 @@ export default function handler(req, res) {
         })
     }
 
-    msg["html"] = req.body;
+    console.log(req.body);
+
+    const data = JSON.parse(req.body);
+
+
+    msg["html"] = data.html;
     msg["to"] = email;
+    msg["subject"] = data?.settingsData?.subject ? data.settingsData.subject : "David Damirov, personal fitness instructor."
+    msg["text"] = data?.settingsData?.text ? data.settingsData.text : "Please view requested data of my pricing inside of the email."
 
     console.log(`Sending email to ${email}.`);
 

@@ -58,17 +58,11 @@ export default function Home() {
           <TabPanels>
             <TabPanel
             >
-              <Box
-                display={"flex"}
-                flexDir={"column"}
-                justifyContent={"center"}
-                alignItems={"center"}
-                h="100vh"
-              >
-                <Box>
+              <Container>
+                <Box transform={"translateY(-300px)"}>
                   <SendEmailForm />
                 </Box>
-              </Box>
+              </Container>
             </TabPanel>
             <TabPanel
             >
@@ -77,16 +71,9 @@ export default function Home() {
               </code>
             </TabPanel>
             <TabPanel>
-              <Box
-                maxW="900px"
-                m="0 auto"
-                minH="100vh"
-                display={"flex"}
-                alignItems={"center"}
-
-              >
+              <Container>
                 <Settings />
-              </Box>
+              </Container>
             </TabPanel>
           </TabPanels>
 
@@ -99,11 +86,12 @@ export default function Home() {
 function Settings() {
   const [subject, setSubject] = useState("");
   const [text, setText] = useState("");
+  const [isSaving, setIsSaving] = useState(false)
 
   useEffect(() => {
     const savedSubject = localStorage.getItem(SUBJECT);
     const savedText = localStorage.getItem(TEXT);
-    console.log(subject);
+    console.log(savedSubject, savedText);
 
     if (savedSubject) {
       setSubject(() => savedSubject);
@@ -117,16 +105,18 @@ function Settings() {
 
   return (
     <Box
-      as={"form"}
       w="100%"
       display={"flex"}
       flexDir={"column"}
-      gap={"35px"}
       transform={"translateY(-300px)"}
+      as={"form"}
+      gap={"35px"}
       onSubmit={(e) => {
+        setIsSaving(true)
         e.preventDefault()
-        localStorage.setItem("subject", SUBJECT);
-        localStorage.setItem("text", TEXT)
+        localStorage.setItem("subject", subject);
+        localStorage.setItem("text", text)
+        setIsSaving(false)
       }}
     >
       <FormControl>
@@ -141,9 +131,24 @@ function Settings() {
           onChange={(e) => setText(e.target.value)}
           value={text} type='text' />
       </FormControl>
-      <CustomButton>
+      <CustomButton isSending={isSaving}>
         Save
       </CustomButton>
+    </Box>
+  )
+}
+
+function Container({ children, ...styles }) {
+  return (
+    <Box
+      maxW="900px"
+      m="0 auto"
+      minH="100vh"
+      display={"flex"}
+      alignItems={"center"}
+
+    >
+      {children}
     </Box>
   )
 }
@@ -236,12 +241,13 @@ function SendEmailForm() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: {
+          body: JSON.stringify({
             html,
-            headerData: {
-
+            settingsData: {
+              subject,
+              text
             }
-          },
+          }),
         });
 
 
@@ -275,8 +281,9 @@ function SendEmailForm() {
       <CustomButton
         isLoading={isSending}
       >Send</CustomButton>
-      {showAlert && <Portal>
+      {showAlert && <Portal zIndex={100}>
         <Alert
+          zIndex={100}
           status={success === true ? 'success' : 'error'}
           variant='subtle'
           flexDirection='column'
@@ -284,7 +291,6 @@ function SendEmailForm() {
           justifyContent='center'
           textAlign='center'
           height='200px'
-          closable
           position={"absolute"}
           top={0}
           left={"50%"}

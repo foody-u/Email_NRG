@@ -128,7 +128,7 @@ export const Email = ({ preview }) => (
                         backgroundColor={PALLET.green["500"]}
                         color="white"
                         marginTop="-25px"
-
+                        href={" https://tidycal.com/damirov5/induction-training-session-at-nrg"}
                     />
 
                 </Section>
@@ -208,6 +208,7 @@ export const Email = ({ preview }) => (
                                 £50/month
                             </Text>
                             <CustomLink
+                                href="https://buy.stripe.com/14k3dP3se8Ub9Y44gi"
                                 marginTop="36px"
                                 padding="18px 80px"
                             >Book a call</CustomLink>
@@ -241,8 +242,10 @@ export const Email = ({ preview }) => (
                                     the button below
 
                                 </Text>
-                                <ButtonLink>Contact</ButtonLink>
-                                <ButtonLink marginLeft="25px">Reviews</ButtonLink>
+                                <ButtonLink >Contact</ButtonLink>
+                                <ButtonLink
+                                    href="https://damirov.com#rec539368327"
+                                    marginLeft="25px">Reviews</ButtonLink>
                             </Column>
 
                         </Row>
@@ -313,7 +316,12 @@ function MeritColumn({ highlight, text, ...styles }) {
                 fontWeight: "bold"
             }}>{highlight}</span>
             <br />
-            {text}
+            <span style={{
+                fontWeight: 300,
+                ...TEXT_STYLE.textSm
+            }}>
+                {text}
+            </span>
         </Column >
     )
 }
@@ -323,6 +331,7 @@ function SecondaryCard({
     sessionNum,
     price,
     oldPrice,
+    href
 }) {
 
 
@@ -346,9 +355,10 @@ function SecondaryCard({
                     Training {sessionNum > 1 ? "sessions" : "session"}
                 </Text>
                 <Row style={{
-                    height: "80px"
+                    height: oldPrice ? "80px" : "125px"
                 }}></Row>
                 <PriceButton
+                    href={href}
                     small
                     price={price}
                     oldPrice={oldPrice}
@@ -365,6 +375,7 @@ function PriceButton({
     oldPrice,
     text,
     small,
+    href,
     ...styles
 }) {
     return (
@@ -393,6 +404,7 @@ function PriceButton({
             </Text>
 
             <CustomLink
+                href={href}
                 small
                 {...styles}
             >{text}</CustomLink>

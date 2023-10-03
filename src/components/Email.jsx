@@ -19,7 +19,7 @@ import * as React from 'react';
 
 import { FIRST_ROW_DATA, SECOND_ROW_DATA } from '@/data';
 
-export const Email = () => (
+export const Email = ({ preview }) => (
     <Html>
         <Head>
             <Font
@@ -29,7 +29,7 @@ export const Email = () => (
                 fontStyle="normal"
             />
         </Head>
-        <Preview>Schedule your first meeting with personal coach David</Preview>
+        <Preview>{preview}</Preview>
         <Body style={main}>
             <Container style={container}>
                 <Section style={{
@@ -264,7 +264,6 @@ export const Email = () => (
                             </Column>
                             <Column style={{
                             }}>
-
                                 <Text style={{
                                     ...TEXT_STYLE.h2
                                 }}>David Damirov</Text>

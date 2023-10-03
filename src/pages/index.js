@@ -24,11 +24,14 @@ import {
   FormLabel,
   FormErrorMessage,
   FormHelperText,
+  Textarea
 } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 
 const SUBJECT = "subject"
 const TEXT = "text"
+const PREVIEW = "preview"
+
 
 export default function Home() {
   return (
@@ -83,12 +86,13 @@ export default function Home() {
 function Settings() {
   const [subject, setSubject] = useState("");
   const [text, setText] = useState("");
+  const [preview, setPreview] = useState("");
   const [isSaving, setIsSaving] = useState(false)
 
   useEffect(() => {
     const savedSubject = localStorage.getItem(SUBJECT);
     const savedText = localStorage.getItem(TEXT);
-    console.log(savedSubject, savedText);
+    const savedPreview = localStorage.getItem(PREVIEW);
 
     if (savedSubject) {
       setSubject(() => savedSubject);
@@ -96,6 +100,10 @@ function Settings() {
 
     if (savedText) {
       setText(() => savedText);
+    }
+
+    if (savedPreview) {
+      setPreview(() => savedPreview);
     }
 
   }, [])
@@ -111,8 +119,9 @@ function Settings() {
       onSubmit={(e) => {
         setIsSaving(true)
         e.preventDefault()
-        localStorage.setItem("subject", subject);
-        localStorage.setItem("text", text)
+        localStorage.setItem(SUBJECT, subject);
+        localStorage.setItem(TEXT, text)
+        localStorage.setItem(PREVIEW, preview)
         setIsSaving(false)
       }}
     >
@@ -127,6 +136,15 @@ function Settings() {
         <Input
           onChange={(e) => setText(e.target.value)}
           value={text} type='text' />
+      </FormControl>
+      <FormControl>
+        <FormLabel>Preview</FormLabel>
+        <Textarea
+          onChange={(e) => setPreview(e.target.value)}
+          value={preview}
+          placeholder='Buy program or I murder ur mum'
+        />
+        <FormHelperText>Email clients have this concept of “preview text” which gives insight into what’s inside the email before you open. A good practice is to keep that text under 90 characters.</FormHelperText>
       </FormControl>
       <CustomButton isSending={isSaving}>
         Save
@@ -211,6 +229,7 @@ function SendEmailForm() {
         e.preventDefault()
         const subject = localStorage.getItem(SUBJECT)
         const text = localStorage.getItem(TEXT)
+        const preview = localStorage.getItem(PREVIEW)
 
 
         if (!subject) {
@@ -225,13 +244,18 @@ function SendEmailForm() {
           return
         }
 
+        if (!preview) {
+          setShowAlert(true)
+          setAlertText("Please set preview in settings!");
+          return
+        }
+
 
         setIsSending(true);
-        const html = render(<Email />, {
+        const html = render(<Email preview={preview} />, {
           pretty: true
         });
         const url = `/api/sendEmail/${inputRef.current.value}`;
-        console.log(url);
         const res = await fetch(url, {
           method: "post",
           mode: "no-cors",
@@ -246,9 +270,6 @@ function SendEmailForm() {
             }
           }),
         });
-
-
-        console.log(res, " RES");
 
         if (res.ok) {
           setSuccess(true);
@@ -281,6 +302,7 @@ function SendEmailForm() {
       {showAlert && <Portal zIndex={100}>
         <Alert
           zIndex={100}
+          bg={success === true ? "green.500" : "red.500"}
           status={success === true ? 'success' : 'error'}
           variant='subtle'
           flexDirection='column'

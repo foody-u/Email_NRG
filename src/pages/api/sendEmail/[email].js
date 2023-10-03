@@ -24,7 +24,7 @@ export default function handler(req, res) {
         })
     }
 
-    console.log(req.body);
+
 
     const data = JSON.parse(req.body);
 
@@ -34,13 +34,13 @@ export default function handler(req, res) {
     msg["subject"] = data?.settingsData?.subject ? data.settingsData.subject : "David Damirov, personal fitness instructor."
     msg["text"] = data?.settingsData?.text ? data.settingsData.text : "Please view requested data of my pricing inside of the email."
 
-    console.log(`Sending email to ${email}.`);
+
 
     sgMail
         .send(msg)
         .then((response) => {
-            console.log(response[0].statusCode)
-            console.log(response[0].headers)
+
+
             res.status(200).json({ detail: "success" })
         })
         .catch((error) => {

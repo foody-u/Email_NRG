@@ -3,7 +3,7 @@ export const FIRST_ROW_DATA = [
         type: "card",
         sessionNum: 1,
         price: 42,
-        href: "https://tidycal.com/damirov5/single-training-sessions"
+        href: "https://tidycal.com/damirov5/single-training-sessions",
     },
 
     {

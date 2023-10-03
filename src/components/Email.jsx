@@ -127,7 +127,7 @@ export const Email = ({ preview }) => (
                         text="Find a time"
                         backgroundColor={PALLET.green["500"]}
                         color="white"
-                        marginTop="-25px"
+                        marginTop="25px"
                         href={" https://tidycal.com/damirov5/induction-training-session-at-nrg"}
                     />
 
@@ -242,7 +242,7 @@ export const Email = ({ preview }) => (
                                     the button below
 
                                 </Text>
-                                <ButtonLink >Contact</ButtonLink>
+                                <ButtonLink href='https://wa.me/447534580009'>Contact</ButtonLink>
                                 <ButtonLink
                                     href="https://damirov.com#rec539368327"
                                     marginLeft="25px">Reviews</ButtonLink>
@@ -261,7 +261,8 @@ export const Email = ({ preview }) => (
                                     alt="Photo of David"
                                     style={{
                                         marginRight: "-28px",
-                                        marginTop: "-20px"
+                                        marginTop: "-20px",
+                                        borderRadius: "999px"
                                     }}
                                 />
                             </Column>
@@ -342,21 +343,24 @@ function SecondaryCard({
         }}>
             <Column style={{
                 ...cardSecondary,
-                width: "450px"
+                width: "450px",
             }}>
                 <Text style={{
                     ...TEXT_STYLE.h1,
-                    fontSize: "72px",
+                    fontSize: "63px",
                     marginBottom: "50px"
                 }}>{sessionNum}</Text>
                 <Text style={{
-                    ...TEXT_STYLE.h2
+                    ...TEXT_STYLE.h2,
+                    whiteSpace: "break-spaces"
                 }}>
-                    Training {sessionNum > 1 ? "sessions" : "session"}
+                    Training
+                    <br />
+                    {sessionNum > 1 ? "sessions" : "session"}
                 </Text>
                 <Row style={{
-                    height: oldPrice ? "80px" : "125px"
-                }}></Row>
+                    height: "120px"
+                }} />
                 <PriceButton
                     href={href}
                     small
@@ -379,23 +383,19 @@ function PriceButton({
     ...styles
 }) {
     return (
-        <Row style={{
-            marginTop: "50px"
-        }}>
+        <Row>
             <Text style={{
                 ...TEXT_STYLE.h2,
                 fontWeight: 300,
                 color: PALLET.green['500'],
                 padding: 'none',
-                marginBottom: !oldPrice ? "47px" : "",
             }}>
                 £{price}
                 {oldPrice && <>
                     <Text style={{
                         ...TEXT_STYLE.textSm,
-                        marginTop: "-20px",
-                        marginBottom: "30px",
-                        padding: 'none'
+                        padding: 'none',
+                        lineHeight: 0,
                     }}>
                         <strike>£{oldPrice}</strike>
                         {" "}· you save £{oldPrice - price}
@@ -405,6 +405,7 @@ function PriceButton({
 
             <CustomLink
                 href={href}
+                marginTop={!oldPrice ? "55px" : "40px"}
                 small
                 {...styles}
             >{text}</CustomLink>
@@ -478,35 +479,35 @@ const main = {
 
 const TEXT_STYLE = {
     h1: {
-        fontSize: "48px",
+        fontSize: "44px",
         fontWeight: "bold",
         color: "white"
     },
     h2: {
-        fontSize: "38px",
+        fontSize: "34px",
         fontWeight: "bold",
         lineHeight: "45px",
         color: "white"
     },
     h3: {
-        fontSize: "32px",
+        fontSize: "28px",
         fontWeight: "semi-bold",
         lineHeight: "",
         color: "white"
     },
     text: {
-        fontSize: "25px",
+        fontSize: "22px",
         fontWeight: 400,
         color: "white"
     },
     textLg: {
-        fontSize: "26px",
+        fontSize: "24px",
         fontWeight: 300,
         color: "white",
         lineHeight: '35px'
     },
     textSm: {
-        fontSize: "20px",
+        fontSize: "18px",
         fontWeight: 400,
         color: "white"
     }
@@ -523,7 +524,7 @@ const card = {
 
 const cardSecondary = {
     ...card,
-    height: "500px",
+    height: "400px",
 }
 
 

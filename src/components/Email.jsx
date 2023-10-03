@@ -29,7 +29,7 @@ export const Email = () => (
                 fontStyle="normal"
             />
         </Head>
-        <Preview>Get your order summary, estimated delivery date and more</Preview>
+        <Preview>Schedule your first meeting with personal coach David</Preview>
         <Body style={main}>
             <Container style={container}>
                 <Section style={{
@@ -61,26 +61,76 @@ export const Email = () => (
                     </Column>
                 </Section>
 
+
+                <SpaceSeparator />
+
+                <Text style={{
+                    ...TEXT_STYLE.h1,
+                    textAlign: 'center',
+                    lineHeight: "62px"
+                }}>
+                    Hi, <br />
+                    my name is David
+                </Text>
+
+                <SpaceSeparator />
+
+                <Section>
+                    <Row>
+
+                        <MeritColumn
+                            highlight={"MSc"}
+                            text="in sport science"
+                        />
+
+                        <MeritColumn
+                            highlight={"6 years"}
+                            text="of experience"
+                        />
+
+                        <MeritColumn
+                            highlight={">100"}
+                            text="clients"
+                            textAlign="end"
+                        />
+
+                    </Row>
+
+
+                    <Row>
+                        <Img
+                            alt='photos of clients'
+                            src='https://ik.imagekit.io/foodyuapp/NRG%20&%20Damirov/NRG%20&%20Damirov%20Pricing%20background.png?updatedAt=1696333812398'
+                        />
+                    </Row>
+
+                </Section>
+
                 <SpaceSeparator />
 
                 <Section style={{
                     ...card,
                     height: "370px",
                     textAlign: "center",
-                    padding: "10px"
+                    padding: "10px",
                 }}>
                     <Heading style={{
                         ...TEXT_STYLE.h1,
-                        marginBottom: "25px"
+                        marginBottom: "40px"
                     }}>First session</Heading>
                     <Text style={{
                         ...TEXT_STYLE.textLg,
+                        marginBottom: "40px",
                     }}>Start with One 55-min training session. Get the important knowledge.</Text>
                     <PriceButton
                         price="15"
-                        text="Find time"
+                        text="Find a time"
+                        backgroundColor={PALLET.green["500"]}
+                        color="white"
+                        marginTop="-25px"
 
                     />
+
                 </Section>
 
 
@@ -112,27 +162,21 @@ export const Email = () => (
                 </Section>
 
                 <LineSeparator />
+                <br />
 
-                <Section>
-                    <Row style={{
-                        textAlign: "start"
-                    }}>
+                <Section >
+                    <Row>
                         <Row>
                             <Heading
                                 style={{
                                     ...TEXT_STYLE.h2,
                                     fontWeight: "400",
                                     textAlign: "center",
-                                    margin: "0 auto"
+                                    margin: "0 auto",
+                                    fontWeight: "bold"
                                 }}
                             >
-                                Monthly
-                                {" "}
-                                <span style={{
-                                    fontWeight: "bold"
-                                }}>Online</span>
-                                <br />
-                                Training program
+                                Online training plan
                             </Heading>
                         </Row>
 
@@ -140,39 +184,39 @@ export const Email = () => (
                         <br />
 
                         <Row style={{
-                            width: "340px",
                             margin: "0 auto",
                         }}>
                             <Column style={{
-                                textAlign: "start",
+                                textAlign: "center",
                             }}>
                                 <Text style={{ ...TEXT_STYLE.text }}>
-                                    - New training plan every month
+                                    New training plan every month
                                 </Text>
-                                <br />
 
                                 <Text style={{ ...TEXT_STYLE.text }}>
-                                    - 1x 30-min video call
+                                    1x 30-min video call
                                 </Text>
-                                <br />
 
                                 <Text style={{ ...TEXT_STYLE.text }}>
-                                    - Access to chat with David
+                                    Access to chat with David
                                 </Text>
                             </Column>
                         </Row>
                         <br />
-                        <Row >
-                            <Text style={{ ...TEXT_STYLE.h2, textAlign: "center" }}>
-                                £50/m
+                        <Row>
+                            <Text style={{ ...TEXT_STYLE.h2, fontWeight: "400", textAlign: "center", color: PALLET.green["500"] }}>
+                                £50/month
                             </Text>
                             <CustomLink
+                                marginTop="36px"
+                                padding="18px 80px"
                             >Book a call</CustomLink>
                         </Row>
                     </Row>
+                    <br />
+
                     <LineSeparator />
-
-
+                    <br />
                     <Section style={{
                     }}>
                         <Row>
@@ -184,22 +228,43 @@ export const Email = () => (
                                 }}>
                                     Any questions?
                                 </Heading>
+
                                 <Text style={{
                                     ...TEXT_STYLE.textSm,
                                     textAlign: "start",
                                 }}>
-                                    WhatsApp: <Link
-                                        href='https://wa.me/07534580009'
+                                    WhatsApp me at <Link
+                                        href='https://wa.me/447534580009'
                                         style={{
                                             fontWeight: "bold"
-                                        }}>07534580009</Link>
+                                        }}>07534580009</Link> or press
+                                    the button below
+
                                 </Text>
+                                <ButtonLink>Contact</ButtonLink>
+                                <ButtonLink marginLeft="25px">Reviews</ButtonLink>
                             </Column>
 
                         </Row>
-                        <Row>
+                        <Row style={{
+                            marginTop: "50px"
+                        }}>
+
+                            <Column>
+                                <Img
+                                    src='https://ik.imagekit.io/foodyuapp/NRG%20&%20Damirov/David%20Avatar.png?updatedAt=1696333812451'
+                                    width={"90px"}
+                                    height={"90px"}
+                                    alt="Photo of David"
+                                    style={{
+                                        marginRight: "-28px",
+                                        marginTop: "-20px"
+                                    }}
+                                />
+                            </Column>
                             <Column style={{
                             }}>
+
                                 <Text style={{
                                     ...TEXT_STYLE.h2
                                 }}>David Damirov</Text>
@@ -211,25 +276,56 @@ export const Email = () => (
                                 }}>Personal trainer</Text>
                             </Column>
                         </Row>
+                        <Row>
+                            <Link>
+                                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="55px" width="55px" xmlns="http://www.w3.org/2000/svg"><path d="M512 306.9c-113.5 0-205.1 91.6-205.1 205.1S398.5 717.1 512 717.1 717.1 625.5 717.1 512 625.5 306.9 512 306.9zm0 338.4c-73.4 0-133.3-59.9-133.3-133.3S438.6 378.7 512 378.7 645.3 438.6 645.3 512 585.4 645.3 512 645.3zm213.5-394.6c-26.5 0-47.9 21.4-47.9 47.9s21.4 47.9 47.9 47.9 47.9-21.3 47.9-47.9a47.84 47.84 0 0 0-47.9-47.9zM911.8 512c0-55.2.5-109.9-2.6-165-3.1-64-17.7-120.8-64.5-167.6-46.9-46.9-103.6-61.4-167.6-64.5-55.2-3.1-109.9-2.6-165-2.6-55.2 0-109.9-.5-165 2.6-64 3.1-120.8 17.7-167.6 64.5C132.6 226.3 118.1 283 115 347c-3.1 55.2-2.6 109.9-2.6 165s-.5 109.9 2.6 165c3.1 64 17.7 120.8 64.5 167.6 46.9 46.9 103.6 61.4 167.6 64.5 55.2 3.1 109.9 2.6 165 2.6 55.2 0 109.9.5 165-2.6 64-3.1 120.8-17.7 167.6-64.5 46.9-46.9 61.4-103.6 64.5-167.6 3.2-55.1 2.6-109.8 2.6-165zm-88 235.8c-7.3 18.2-16.1 31.8-30.2 45.8-14.1 14.1-27.6 22.9-45.8 30.2C695.2 844.7 570.3 840 512 840c-58.3 0-183.3 4.7-235.9-16.1-18.2-7.3-31.8-16.1-45.8-30.2-14.1-14.1-22.9-27.6-30.2-45.8C179.3 695.2 184 570.3 184 512c0-58.3-4.7-183.3 16.1-235.9 7.3-18.2 16.1-31.8 30.2-45.8s27.6-22.9 45.8-30.2C328.7 179.3 453.7 184 512 184s183.3-4.7 235.9 16.1c18.2 7.3 31.8 16.1 45.8 30.2 14.1 14.1 22.9 27.6 30.2 45.8C844.7 328.7 840 453.7 840 512c0 58.3 4.7 183.2-16.2 235.8z"></path></svg>
+                            </Link>
+                        </Row>
                     </Section>
                 </Section>
 
 
             </Container>
         </Body>
-    </Html>
+    </Html >
 );
+
+function ButtonLink({ children, href, ...styles }) {
+    return (
+        <Link
+            style={{
+                ...TEXT_STYLE.text,
+                ...styles
+            }}
+            href={href ? href : "#"} >
+            {children}
+        </Link >
+    )
+}
+
+function MeritColumn({ highlight, text, ...styles }) {
+    return (
+        <Column style={{
+            ...TEXT_STYLE.text,
+            paddingBottom: "20px",
+            ...styles
+        }}>
+            <span style={{
+                fontWeight: "bold"
+            }}>{highlight}</span>
+            <br />
+            {text}
+        </Column >
+    )
+}
 
 
 function SecondaryCard({
     sessionNum,
-    text,
     price,
     oldPrice,
 }) {
 
-    const firstPart = text.split(" ").slice(0, 3).join(" ");
-    const lastPart = text.split(" ").slice(3, text.length).join(" ");
 
     return (
         <Column style={{
@@ -240,29 +336,24 @@ function SecondaryCard({
                 ...cardSecondary,
                 width: "450px"
             }}>
-                <Row>
-                    <Text style={{
-                        ...TEXT_STYLE.h1,
-                    }}>{sessionNum}</Text>
-                </Row>
+                <Text style={{
+                    ...TEXT_STYLE.h1,
+                    fontSize: "72px",
+                    marginBottom: "50px"
+                }}>{sessionNum}</Text>
                 <Text style={{
                     ...TEXT_STYLE.h2
                 }}>
                     Training {sessionNum > 1 ? "sessions" : "session"}
                 </Text>
-                <Text style={{
-                    ...TEXT_STYLE.text,
-                    marginTop: "50px",
-                    height: "85px"
-                }}>{text}</Text>
                 <Row style={{
-                    marginTop: "auto"
+                    height: "80px"
                 }}></Row>
                 <PriceButton
                     small
                     price={price}
                     oldPrice={oldPrice}
-                    text="Find time"
+                    text="Find a time"
 
                 />
             </Column>
@@ -274,29 +365,39 @@ function PriceButton({
     price,
     oldPrice,
     text,
-    small
+    small,
+    ...styles
 }) {
     return (
         <Row style={{
             marginTop: "50px"
         }}>
-
             <Text style={{
-                ...TEXT_STYLE.h3,
-                marginBottom: "15px",
+                ...TEXT_STYLE.h2,
                 fontWeight: 300,
+                color: PALLET.green['500'],
+                padding: 'none',
+                marginBottom: !oldPrice ? "47px" : "",
             }}>
                 £{price}
+                {oldPrice && <>
+                    <Text style={{
+                        ...TEXT_STYLE.textSm,
+                        marginTop: "-20px",
+                        marginBottom: "30px",
+                        padding: 'none'
+                    }}>
+                        <strike>£{oldPrice}</strike>
+                        {" "}· you save £{oldPrice - price}
+                    </Text>
+                </>}
             </Text>
-            {oldPrice && <>
-                <Text>
-                    <strike>£{oldPrice}</strike>
-                    | you save £{oldPrice - price}
-                </Text>
-            </>}
+
             <CustomLink
-                small>{text}</CustomLink>
-        </Row>
+                small
+                {...styles}
+            >{text}</CustomLink>
+        </Row >
     )
 }
 
@@ -306,26 +407,33 @@ function CustomLink({ children, href, small, ...styles }) {
         <Link
             href={href ? href : "#"}
             style={{
+                maxWidth: "300px",
+                margin: "0 auto",
                 color: "black",
-                padding: small ? "12px 50px" : "12px 120px",
-                borderRadius: "5px",
-                fontSize: "19px",
+                padding: small ? "14px 50px" : "14px 120px",
+                borderRadius: "10px",
+                fontSize: "25px",
                 textAlign: "center",
                 display: "block",
                 background: "white",
                 boxShadow: "4px 3px 8px 0px rgba(34, 60, 80, 0.2)",
+                fontWeight: "bold",
                 ...styles
             }}
         >{children}</Link>
     )
 }
 
+
+
 function LineSeparator() {
     return (
         <>
             <br />
             <br />
-            <hr />
+            <hr style={{
+                background: "white"
+            }} />
             <br />
             <br />
         </>
@@ -345,21 +453,28 @@ function SpaceSeparator() {
     )
 }
 
+const PALLET = {
+    green: {
+        500: "#00C16B"
+    }
+}
+
+
 const main = {
     background: "#2F2F2F",
+
 };
 
 const TEXT_STYLE = {
     h1: {
         fontSize: "48px",
         fontWeight: "bold",
-        lineHeight: "",
         color: "white"
     },
     h2: {
         fontSize: "38px",
         fontWeight: "bold",
-        lineHeight: "",
+        lineHeight: "45px",
         color: "white"
     },
     h3: {
@@ -375,8 +490,9 @@ const TEXT_STYLE = {
     },
     textLg: {
         fontSize: "26px",
-        fontWeight: 400,
-        color: "white"
+        fontWeight: 300,
+        color: "white",
+        lineHeight: '35px'
     },
     textSm: {
         fontSize: "20px",
@@ -396,7 +512,7 @@ const card = {
 
 const cardSecondary = {
     ...card,
-    height: "480px",
+    height: "500px",
 }
 
 

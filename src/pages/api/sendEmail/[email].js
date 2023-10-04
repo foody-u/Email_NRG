@@ -47,6 +47,4 @@ export default function handler(req, res) {
             console.error(error)
             res.status(500).json({ detail: "failed" })
         })
-
-    res.status(500);
 }

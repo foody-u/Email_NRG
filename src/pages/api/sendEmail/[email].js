@@ -1,5 +1,5 @@
 const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey("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")
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 const GMAIL = "semen.shorin@gmail.com"
 const YANDEX = "s3menchyk@Yandex.ru"
@@ -12,6 +12,8 @@ const msg = {
 
 
 export default function handler(req, res) {
+    console.log(process.env.SENDGRID_API_KEY, " API");
+
     const {
         email
     } = req.query;
@@ -34,8 +36,6 @@ export default function handler(req, res) {
     msg["subject"] = data?.settingsData?.subject ? data.settingsData.subject : "David Damirov, personal fitness instructor."
     msg["text"] = data?.settingsData?.text ? data.settingsData.text : "Please view requested data of my pricing inside of the email."
 
-
-
     sgMail
         .send(msg)
         .then((response) => {
@@ -44,7 +44,7 @@ export default function handler(req, res) {
             res.status(200).json({ detail: "success" })
         })
         .catch((error) => {
-            console.error(error)
+            console.error(error, " ERROR")
             res.status(500).json({ detail: "failed" })
         })
 }

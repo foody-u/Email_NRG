@@ -7,7 +7,6 @@ const msg = {
 export default function handler(req, res) {
     console.log(process.env.SENDGRID_API_KEY, " API");
     console.log(process.env.SENDER_EMAIL, " SENDER EMAIL");
-
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     const {
         email

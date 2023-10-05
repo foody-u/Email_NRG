@@ -319,6 +319,14 @@ function SendEmailForm() {
         if (res.ok) {
           setSuccess(true);
         } else {
+
+          try {
+            const parsedJson = await res.json();
+            setAlertText(parsedJson?.detail ? parsedJson.detail : JSON.stringify(parsedJson));
+          } catch (err) {
+            console.error(err)
+          }
+
           setSuccess(false)
         }
 

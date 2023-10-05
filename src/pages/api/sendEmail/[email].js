@@ -47,11 +47,14 @@ export default async function handler(req, res) {
                 <p>Attempt to send email with invalid password from ${ip}</p>
             </html>`
             });
-        } catch (_) { }
+        } catch (_) {
+
+        }
 
         console.log("Returning 403 at the end of no password block");
-        res.status(403).end()
-
+        res.status(403).json({
+            detail: "Invalid password"
+        })
     } else {
         console.info(data, " PARSED DATA")
 
@@ -67,8 +70,8 @@ export default async function handler(req, res) {
             await sgMail.send(msg)
             res.status(200).json({ detail: "success" })
         } catch (e) {
-            console.error(error, " ERROR")
-            res.status(500).json({ detail: "failed" })
+            console.error(e, " SENDGRID-ERROR")
+            res.status(500).json({ detail: `Sendgrid errored during email delivery. Check logs on vercel.` })
         }
     }
 }

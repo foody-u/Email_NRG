@@ -48,12 +48,12 @@ export default function Home() {
         w="100%"
         minH="100vh"
       >
-        <Tabs
-        >
+        <Tabs>
           <TabList
             m="0 auto"
             transform={"translateX(-50px)"}
-            maxW="350px">
+            maxW="350px"
+          >
             <Tab flex={1}>Send email</Tab>
             <Tab flex={1}>Settings</Tab>
             <Tab flex={1}>Preview</Tab>
@@ -179,7 +179,7 @@ function Container({ children, ...styles }) {
       display={"flex"}
       alignItems={"center"}
       marginTop={"200px"}
-
+      justifyContent={"center"}
     >
       {children}
     </Box>
@@ -238,11 +238,14 @@ function SendEmailForm() {
 
 
   return (
-    <form style={{
-      width: "800px",
-      display: "flex",
-      gap: "5px"
-    }}
+    <Box
+      display={"flex"}
+      gap="5px"
+      width={{
+        base: "100%",
+        lg: "800px"
+      }}
+      as="form"
       onSubmit={async (e) => {
         e.preventDefault()
         const subject = localStorage.getItem(SUBJECT)
@@ -349,6 +352,6 @@ function SendEmailForm() {
           <AlertDescription>{alertText}</AlertDescription>
         </Alert>
       </Portal>}
-    </form>
+    </Box>
   )
 }

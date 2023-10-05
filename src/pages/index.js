@@ -63,7 +63,7 @@ export default function Home() {
             <TabPanel
             >
               <Container>
-                <Box transform={"translateY(-300px)"}>
+                <Box>
                   <SendEmailForm />
                 </Box>
               </Container>
@@ -121,7 +121,6 @@ function Settings() {
       w="100%"
       display={"flex"}
       flexDir={"column"}
-      transform={"translateY(-300px)"}
       as={"form"}
       gap={"35px"}
       onSubmit={(e) => {
@@ -176,9 +175,10 @@ function Container({ children, ...styles }) {
     <Box
       maxW="900px"
       m="0 auto"
-      minH="100vh"
+      minH="100%"
       display={"flex"}
       alignItems={"center"}
+      marginTop={"200px"}
 
     >
       {children}
@@ -337,7 +337,7 @@ function SendEmailForm() {
           textAlign='center'
           height='200px'
           position={"absolute"}
-          top={0}
+          bottom={0}
           left={"50%"}
           transform={"translateX(-50%)"}
           color={"white"}

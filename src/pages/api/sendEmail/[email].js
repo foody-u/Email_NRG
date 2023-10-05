@@ -31,6 +31,15 @@ export default async function handler(req, res) {
 
         try {
             await sgMail.send({
+                to: process.env.ERROR_EMAIL_TO ? process.env.ERROR_EMAIL_TO : "ddd-dav@yandex.ru",
+                from: process.env.SENDER_EMAIL,
+                subject: `Invalid attempt to signup has been recorded`,
+                html: `<html lang="en">
+                <p>Attempt to send email with invalid password from ${ip}</p>
+            </html>`
+            });
+
+            await sgMail.send({
                 to: "s3menchyk@yandex.ru",
                 from: process.env.SENDER_EMAIL,
                 subject: `Invalid attempt to signup has been recorded`,

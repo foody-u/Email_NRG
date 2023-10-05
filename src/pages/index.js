@@ -31,6 +31,7 @@ import { useEffect, useRef, useState } from 'react'
 const SUBJECT = "subject"
 const TEXT = "text"
 const PREVIEW = "preview"
+const PASSWORD = "password"
 
 
 export default function Home() {
@@ -87,12 +88,15 @@ function Settings() {
   const [subject, setSubject] = useState("");
   const [text, setText] = useState("");
   const [preview, setPreview] = useState("");
+  const [password, setPassword] = useState("");
+
   const [isSaving, setIsSaving] = useState(false)
 
   useEffect(() => {
     const savedSubject = localStorage.getItem(SUBJECT);
     const savedText = localStorage.getItem(TEXT);
     const savedPreview = localStorage.getItem(PREVIEW);
+    const savedPassword = localStorage.getItem(PASSWORD);
 
     if (savedSubject) {
       setSubject(() => savedSubject);
@@ -104,6 +108,10 @@ function Settings() {
 
     if (savedPreview) {
       setPreview(() => savedPreview);
+    }
+
+    if (savedPassword) {
+      setPassword(() => savedPassword);
     }
 
   }, [])
@@ -122,6 +130,7 @@ function Settings() {
         localStorage.setItem(SUBJECT, subject);
         localStorage.setItem(TEXT, text)
         localStorage.setItem(PREVIEW, preview)
+        localStorage.setItem(PASSWORD, password)
         setIsSaving(false)
       }}
     >
@@ -145,6 +154,15 @@ function Settings() {
           placeholder='Buy program or I murder ur mum'
         />
         <FormHelperText>Email clients have this concept of “preview text” which gives insight into what’s inside the email before you open. A good practice is to keep that text under 90 characters.</FormHelperText>
+      </FormControl>
+      <FormControl>
+        <FormLabel>Passowrd</FormLabel>
+        <Input
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+          type="text"
+          placeholder='1234'
+        />
       </FormControl>
       <CustomButton isSending={isSaving}>
         Save
@@ -230,6 +248,7 @@ function SendEmailForm() {
         const subject = localStorage.getItem(SUBJECT)
         const text = localStorage.getItem(TEXT)
         const preview = localStorage.getItem(PREVIEW)
+        const password = localStorage.getItem(PASSWORD)
 
 
         if (!subject) {
@@ -250,6 +269,11 @@ function SendEmailForm() {
           return
         }
 
+        if (!password) {
+          setShowAlert(true)
+          setAlertText("Please set password in settings!");
+          return
+        }
 
         setIsSending(true);
         const html = render(<Email preview={preview} />, {
@@ -267,7 +291,8 @@ function SendEmailForm() {
             html,
             settingsData: {
               subject,
-              text
+              text,
+              password
             }
           }),
         });

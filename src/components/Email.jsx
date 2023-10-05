@@ -210,7 +210,7 @@ export const Email = ({ preview }) => (
                             <CustomLink
                                 href="https://buy.stripe.com/14k3dP3se8Ub9Y44gi"
                                 marginTop="36px"
-                                padding="18px 80px"
+                                padding="14px 84px"
                             >Book a call</CustomLink>
                         </Row>
                     </Row>
@@ -413,7 +413,6 @@ function SecondaryCard({
     href
 }) {
 
-
     return (
         <Column style={{
             paddingRight: "5px",
@@ -440,6 +439,7 @@ function SecondaryCard({
                     height: "120px"
                 }} />
                 <PriceButton
+                    width="250px"
                     href={href}
                     small
                     price={price}
@@ -501,7 +501,7 @@ function CustomLink({ children, href, small, ...styles }) {
         <Link
             href={href ? href : "#"}
             style={{
-                maxWidth: "300px",
+                width: "300px",
                 margin: "0 auto",
                 color: "black",
                 padding: small ? "14px 50px" : "14px 120px",

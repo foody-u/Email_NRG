@@ -114,7 +114,25 @@ function Settings() {
       setPassword(() => savedPassword);
     }
 
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    let timer;
+    async function autoSave() {
+      timer = setTimeout(() => {
+        localStorage.setItem(SUBJECT, subject);
+        localStorage.setItem(TEXT, text)
+        localStorage.setItem(PREVIEW, preview)
+        localStorage.setItem(PASSWORD, password)
+      }, 600)
+    }
+
+    autoSave()
+
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [subject, text, preview, password])
 
   return (
     <Box
@@ -163,9 +181,7 @@ function Settings() {
           placeholder='1234'
         />
       </FormControl>
-      <CustomButton isSending={isSaving}>
-        Save
-      </CustomButton>
+
     </Box>
   )
 }

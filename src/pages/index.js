@@ -299,7 +299,6 @@ function SendEmailForm() {
           pretty: true
         });
         const url = `/api/sendEmail/${inputRef.current.value}`;
-
         const res = await fetch(url, {
           method: "post",
           mode: "no-cors",
@@ -328,9 +327,9 @@ function SendEmailForm() {
           }
 
           setSuccess(false)
+          setShowAlert(true)
         }
 
-        setShowAlert(true)
         setIsSending(false)
       }}
     >
